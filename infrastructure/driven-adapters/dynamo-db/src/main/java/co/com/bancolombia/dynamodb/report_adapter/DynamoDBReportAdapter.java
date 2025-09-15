@@ -3,8 +3,10 @@ package co.com.bancolombia.dynamodb.report_adapter;
 
 import co.com.bancolombia.dynamodb.entity.ReportEntity;
 import co.com.bancolombia.dynamodb.helper.TemplateAdapterOperations;
+import co.com.bancolombia.logconstants.logconstants.LogConstants;
 import co.com.bancolombia.model.report.Report;
 import co.com.bancolombia.model.report.gateways.ReportRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.reactivecommons.utils.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -12,7 +14,7 @@ import reactor.core.publisher.Mono;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedAsyncClient;
 
 
-
+@Slf4j
 @Repository
 public class DynamoDBReportAdapter extends TemplateAdapterOperations<Report, String, ReportEntity> implements ReportRepository {
 
@@ -22,6 +24,15 @@ public class DynamoDBReportAdapter extends TemplateAdapterOperations<Report, Str
 
     @Override
     public Mono<Report> findByReportId(String reportId) {
-        return super.getById(reportId);
+        return super.getById(reportId)
+                .doOnSubscribe(sub -> log.info(LogConstants.SEARCH_DYNAMO_ID, reportId))
+                .doOnSuccess(report -> {
+                    if (report != null) {
+                        log.info(LogConstants.REPORT_FOUND, report);
+                    } else {
+                        log.warn(LogConstants.REPORT_NOT_FOUND, reportId);
+                    }
+                })
+                .doOnError(error -> log.error(LogConstants.ERROR_SEARCHING_REPORT, reportId, error));
     }
 }

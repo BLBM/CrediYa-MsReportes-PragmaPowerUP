@@ -2,8 +2,8 @@ package co.com.bancolombia.usecase.get_report;
 
 import co.com.bancolombia.model.report.Report;
 import co.com.bancolombia.model.report.gateways.ReportRepository;
-import common.ReportMessages;
-import exception.DomainException;
+import co.com.bancolombia.usecase.common.ReportMessages;
+import co.com.bancolombia.usecase.exception.DomainException;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 

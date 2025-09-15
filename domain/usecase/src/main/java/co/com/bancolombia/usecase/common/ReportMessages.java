@@ -1,4 +1,4 @@
-package common;
+package co.com.bancolombia.usecase.common;
 
 
 public enum ReportMessages {

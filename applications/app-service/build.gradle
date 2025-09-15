@@ -1,6 +1,8 @@
 apply plugin: 'org.springframework.boot'
 
 dependencies {
+	implementation project(':log-constants')
+	implementation project(':jwt-implementation')
 	implementation 'org.reactivecommons.utils:object-mapper:0.1.0'
 	implementation project(':dynamo-db')
 	implementation project(':metrics')
@@ -12,6 +14,7 @@ dependencies {
     implementation "me.paulschwarz:spring-dotenv:${dotenvVersion}"
     testImplementation 'com.tngtech.archunit:archunit:1.4.1'
     testImplementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 }
 
 tasks.register('explodedJar', Copy) {

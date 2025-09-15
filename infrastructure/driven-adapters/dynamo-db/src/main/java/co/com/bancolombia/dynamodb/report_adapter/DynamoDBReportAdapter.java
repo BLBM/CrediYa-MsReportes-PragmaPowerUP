@@ -1,7 +1,7 @@
 package co.com.bancolombia.dynamodb.report_adapter;
 
-import co.com.bancolombia.dynamodb.entity.ReportEntity;
 
+import co.com.bancolombia.dynamodb.entity.ReportEntity;
 import co.com.bancolombia.dynamodb.helper.TemplateAdapterOperations;
 import co.com.bancolombia.model.report.Report;
 import co.com.bancolombia.model.report.gateways.ReportRepository;
